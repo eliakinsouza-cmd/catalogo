@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sneaker Store — Catálogo de Tênis</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--s:#141414;--card:#161616;--brd:#222;--cta:#ff4500;--cta2:#ff6a00;--grn:#00c853;--ylw:#ffd600;--txt:#f0f0f0;--muted:#666;--r:10px;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;}
+
+/* ── BANNER CARROSSEL ── */
+.banner-wrap{position:relative;overflow:hidden;width:100%;height:420px;background:#000;flex-shrink:0;}
+@media(max-width:600px){.banner-wrap{height:240px;}}
+.banner-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.77,0,.18,1);}
+.banner-slide{min-width:100%;height:100%;position:relative;overflow:hidden;flex-shrink:0;}
+.banner-slide img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.banner-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.3) 50%,rgba(0,0,0,.1) 100%);}
+.banner-content{position:absolute;top:50%;left:7%;transform:translateY(-50%);z-index:2;max-width:520px;}
+.banner-tag{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--cta);margin-bottom:10px;}
+.banner-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,72px);line-height:.95;letter-spacing:1px;color:#fff;margin-bottom:12px;}
+.banner-sub{font-size:clamp(13px,2vw,16px);color:rgba(255,255,255,.75);line-height:1.5;margin-bottom:18px;}
+.banner-pix{display:inline-flex;align-items:center;gap:8px;background:var(--grn);color:#000;font-size:13px;font-weight:800;padding:8px 16px;border-radius:6px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
+.banner-btn{display:inline-flex;align-items:center;gap:8px;background:var(--cta);color:#fff;font-size:14px;font-weight:700;padding:12px 24px;border-radius:8px;cursor:pointer;border:none;text-transform:uppercase;letter-spacing:.5px;transition:background .2s;}
+.banner-btn:hover{background:var(--cta2);}
+/* Dots */
+.banner-dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5;}
+.bdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s;}
+.bdot.on{background:#fff;width:22px;border-radius:4px;}
+/* Arrows */
+.barrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:all .2s;user-select:none;}
+.barrow:hover{background:var(--cta);border-color:var(--cta);}
+.barrow-l{left:14px;}.barrow-r{right:14px;}
+@media(max-width:600px){.banner-content{left:5%;right:5%;}.banner-sub{display:none;}.barrow{display:none;}}
+
+/* ── PIX STRIP ── */
+.pix-strip{background:linear-gradient(90deg,#00a859,#00c853,#00a859);background-size:200%;animation:pSlide 4s linear infinite;padding:10px 24px;text-align:center;font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#000;}
+@keyframes pSlide{0%{background-position:0%}100%{background-position:200%}}
+
+/* ── PROOF ── */
+.proof{background:var(--s);border-bottom:1px solid var(--brd);padding:10px 24px;}
+.proof-in{max-width:1200px;margin:0 auto;display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center;}
+.pi{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);}
+.pi strong{color:var(--txt);}
+.pidot{width:6px;height:6px;background:var(--grn);border-radius:50%;flex-shrink:0;box-shadow:0 0 6px rgba(0,200,83,.5);}
+
+/* ── FILTROS ── */
+.fw{max-width:1200px;margin:24px auto 0;padding:0 24px;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(min-width:600px){.fg{grid-template-columns:repeat(4,1fr);}}
+.fg label{display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.fsel,.finp{width:100%;background:var(--s);border:1.5px solid var(--brd);color:var(--txt);padding:9px 12px;border-radius:8px;font-family:'Inter',sans-serif;font-size:13px;outline:none;appearance:none;transition:border-color .2s;}
+.fsel:focus,.finp:focus{border-color:var(--cta);}
+.fsel option{background:#1a1a1a;}
+.finp::placeholder{color:var(--muted);}
+.f-row{display:flex;align-items:center;gap:12px;margin-top:10px;}
+.f-reset{background:none;border:1.5px solid var(--brd);color:var(--muted);font-size:12px;padding:7px 14px;border-radius:7px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;}
+.f-reset:hover{border-color:var(--cta);color:var(--cta);}
+.f-cnt{font-size:12px;color:var(--muted);}
+.f-cnt span{color:var(--cta);font-weight:700;}
+
+/* ── TABS ── */
+.tw{max-width:1200px;margin:14px auto 0;padding:0 24px;}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.tb{background:var(--s);border:1.5px solid var(--brd);color:var(--muted);padding:6px 14px;border-radius:100px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.tb:hover{border-color:var(--cta);color:var(--cta);}
+.tb.active{background:var(--cta);border-color:var(--cta);color:#fff;font-weight:700;}
+
+/* ── CONTENT ── */
+.content{max-width:1200px;margin:24px auto 100px;padding:0 24px;}
+.sec{margin-bottom:40px;}
+.sec-hd{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px;padding-bottom:10px;border-bottom:1px solid var(--brd);}
+.sec-t{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.5px;}
+.sec-c{font-size:12px;color:var(--muted);}
+.sec-tip{background:rgba(255,69,0,.06);border-left:3px solid var(--cta);border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:12px;}
+.sec-tip strong{color:var(--cta);font-size:10px;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:2px;}
+
+/* ── GRID DE MODELOS ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+
+/* ── CARD DO MODELO ── */
+.mcard{background:var(--card);border:1.5px solid var(--brd);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;}
+.mcard:hover{transform:translateY(-4px);border-color:var(--cta);box-shadow:0 8px 28px rgba(255,69,0,.12);}
+.mci{aspect-ratio:4/3;background:#111;position:relative;overflow:hidden;}
+.mci::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#111 25%,#1c1c1c 50%,#111 75%);background-size:200%;animation:sh 1.2s linear infinite;z-index:0;}
+.mci.ok::before{animation:none;background:none;}
+@keyframes sh{0%{background-position:200%}100%{background-position:-200%}}
+.mci img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .3s,transform .4s;}
+.mci img.vis{opacity:1;}
+.mcard:hover .mci img{transform:scale(1.05);}
+.mci-ov{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;opacity:0;transition:opacity .2s;z-index:3;}
+.mcard:hover .mci-ov{opacity:1;}
+.mci-ov span{color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(255,255,255,.4);padding:4px 11px;border-radius:4px;}
+.mci-ov small{color:rgba(255,255,255,.55);font-size:10px;}
+.qdot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--grn);border-radius:50%;z-index:4;box-shadow:0 0 0 2px rgba(0,0,0,.5),0 0 6px rgba(0,200,83,.5);}
+.cbadge{position:absolute;top:7px;left:7px;background:var(--ylw);color:#000;font-size:8px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;padding:2px 6px;border-radius:3px;z-index:4;}
+.var-count{position:absolute;bottom:7px;left:7px;background:rgba(0,0,0,.75);color:var(--ylw);font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;z-index:4;}
+.mcb{padding:10px 12px 12px;}
+.mcm{font-size:10px;font-weight:700;color:var(--cta);text-transform:uppercase;letter-spacing:1px;}
+.mcn{font-size:12px;font-weight:700;color:var(--txt);line-height:1.3;margin-top:2px;}
+.mct{font-size:10px;color:var(--muted);margin-top:2px;}
+.bw{margin-top:7px;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--cta);color:#fff;font-size:10px;font-weight:700;padding:8px;border-radius:6px;border:none;cursor:pointer;transition:background .18s;text-transform:uppercase;width:100%;}
+.bw:hover{background:var(--cta2);}
+
+/* ── MODAL VARIAÇÕES ── */
+.vmod{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;flex-direction:column;}
+.vmod.open{display:flex;}
+.vmh{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--brd);flex-shrink:0;gap:10px;flex-wrap:wrap;}
+.vmh-left{flex:1;min-width:0;}
+.vmh-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;}
+.vmh-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.vmh-orig{display:flex;align-items:center;gap:5px;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.2);border-radius:5px;padding:4px 9px;font-size:10px;font-weight:700;color:var(--grn);white-space:nowrap;}
+.vmx{background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;line-height:1;}
+.vmx:hover{color:var(--txt);}
+.vmb{flex:1;overflow-y:auto;padding:14px;}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;}
+.vcard{background:var(--card);border:1.5px solid var(--brd);border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+.vcard:hover{border-color:var(--cta);box-shadow:0 4px 14px rgba(255,69,0,.1);}
+.vcard.selected{border-color:var(--cta);box-shadow:0 0 0 2px rgba(255,69,0,.25);}
+.vci{aspect-ratio:1/1;background:#111;position:relative;overflow:hidden;}
+.vci::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#111 25%,#1c1c1c 50%,#111 75%);background-size:200%;animation:sh 1.2s linear infinite;z-index:0;}
+.vci.ok::before{animation:none;background:none;}
+.vci img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .25s;}
+.vci img.vis{opacity:1;}
+.vcb{padding:6px 8px 8px;}
+.vcn{font-size:10px;color:var(--muted);}
+.vmfoot{display:flex;gap:10px;padding:11px 16px;border-top:1px solid var(--brd);flex-shrink:0;align-items:center;}
+.vm-sel-info{flex:1;font-size:12px;color:var(--muted);}
+.vm-sel-info strong{color:var(--txt);display:block;font-size:13px;}
+.vmwpp{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--cta);color:#fff;font-size:12px;font-weight:700;padding:10px 16px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;transition:background .2s;white-space:nowrap;}
+.vmwpp:hover{background:var(--cta2);}
+
+/* ── LIGHTBOX ── */
+.lbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.97);z-index:2000;flex-direction:column;}
+.lbox.open{display:flex;}
+.lh{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--brd);flex-shrink:0;gap:10px;}
+.lh-info{flex:1;min-width:0;}
+.lh-t{font-size:14px;font-weight:700;}
+.lh-m{font-size:10px;color:var(--muted);margin-top:1px;}
+.lback{display:flex;align-items:center;gap:5px;background:var(--s);border:1px solid var(--brd);color:var(--muted);font-size:11px;padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.lback:hover{border-color:var(--cta);color:var(--cta);}
+.lx{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;}
+.lx:hover{color:var(--txt);}
+.lmain{flex:1;display:flex;align-items:center;justify-content:center;padding:10px;min-height:0;position:relative;}
+.limgwrap{position:relative;max-height:100%;}
+#limg{max-height:calc(100vh - 230px);max-width:100%;object-fit:contain;border-radius:6px;display:block;cursor:crosshair;}
+.zlens{position:absolute;border:2px solid rgba(255,255,255,.3);pointer-events:none;z-index:5;display:none;border-radius:3px;}
+.zres{position:fixed;width:260px;height:260px;border-radius:8px;border:1px solid var(--brd);overflow:hidden;background:#111;display:none;z-index:2010;pointer-events:none;}
+.zres img{position:absolute;pointer-events:none;}
+.lnav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.55);border:1px solid var(--brd);color:var(--txt);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;z-index:5;transition:all .2s;user-select:none;}
+.lnav:hover{background:var(--cta);border-color:var(--cta);}
+.lprev{left:6px;}.lnext{right:6px;}
+.lthumbs{display:flex;gap:5px;padding:8px 14px;overflow-x:auto;flex-shrink:0;border-top:1px solid var(--brd);}
+.lthumbs::-webkit-scrollbar{height:3px;}
+.lthumbs::-webkit-scrollbar-thumb{background:var(--brd);border-radius:2px;}
+.lthumb{width:48px;height:48px;flex-shrink:0;border-radius:4px;overflow:hidden;cursor:pointer;border:2px solid transparent;opacity:.5;transition:all .15s;}
+.lthumb.on{border-color:var(--cta);opacity:1;}
+.lthumb:hover{opacity:.85;}
+.lthumb img{width:100%;height:100%;object-fit:cover;}
+.lfoot{display:flex;align-items:center;gap:10px;padding:9px 14px;border-top:1px solid var(--brd);flex-shrink:0;}
+.lcnt{font-size:11px;color:var(--muted);white-space:nowrap;}
+.lwpp{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--cta);color:#fff;font-size:12px;font-weight:700;padding:10px;border-radius:7px;text-transform:uppercase;border:none;cursor:pointer;transition:background .2s;}
+.lwpp:hover{background:var(--cta2);}
+.lload{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:13px;flex:1;}
+.spin{width:24px;height:24px;border:2px solid var(--brd);border-top-color:var(--cta);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── MODAL NOME ── */
+.nm{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:3000;align-items:center;justify-content:center;padding:16px;}
+.nm.open{display:flex;}
+.nm-box{background:var(--card);border:1.5px solid var(--brd);border-radius:14px;max-width:380px;width:100%;padding:24px 20px;}
+.nm-t{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:4px;}
+.nm-s{font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.5;}
+.nm-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px;}
+.nm-inp{width:100%;background:var(--s);border:1.5px solid var(--brd);color:var(--txt);padding:10px 13px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s;margin-bottom:12px;}
+.nm-inp:focus{border-color:var(--cta);}
+.nm-inp::placeholder{color:var(--muted);}
+.nm-btns{display:flex;gap:8px;}
+.nm-send{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--cta);color:#fff;font-size:13px;font-weight:700;padding:10px;border-radius:8px;border:none;cursor:pointer;text-transform:uppercase;transition:background .2s;}
+.nm-send:hover{background:var(--cta2);}
+.nm-skip{background:none;border:1.5px solid var(--brd);color:var(--muted);font-size:12px;padding:10px 14px;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;}
+.nm-skip:hover{border-color:var(--cta);color:var(--cta);}
+
+/* ── POPUP ── */
+.pop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:4000;align-items:center;justify-content:center;padding:16px;}
+.pop.show{display:flex;}
+.popbox{background:var(--card);border:1.5px solid var(--brd);border-radius:16px;max-width:420px;width:100%;overflow:hidden;position:relative;transform:scale(.88) translateY(20px);opacity:0;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .35s;}
+.pop.show .popbox{transform:scale(1) translateY(0);opacity:1;}
+.ppulse{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--ylw);color:#000;font-size:9px;font-weight:800;padding:3px 11px;border-radius:100px;letter-spacing:1px;text-transform:uppercase;white-space:nowrap;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,214,0,.5)}50%{box-shadow:0 0 0 7px rgba(255,214,0,0)}}
+.pphoto{height:175px;overflow:hidden;background:#111;position:relative;}
+.pphoto img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
+.pphoto-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.88));}
+.pphoto-txt{position:absolute;bottom:0;left:0;right:0;padding:12px 16px;}
+.pphoto-tag{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:2px;}
+.pphoto-h{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;line-height:1;}
+.px{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.5);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;z-index:1;}
+.pbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:11px;}
+.ptxt{text-align:center;font-size:13px;color:var(--txt);line-height:1.6;}
+.ptxt strong{color:var(--ylw);font-size:14px;display:block;margin-bottom:2px;}
+.pwpp{display:flex;align-items:center;justify-content:center;gap:8px;background:#25d366;color:#fff;font-size:13px;font-weight:800;padding:12px;border-radius:9px;border:none;cursor:pointer;text-decoration:none;text-transform:uppercase;transition:all .2s;}
+.pwpp:hover{background:#1ebe5d;}
+.pskip{text-align:center;font-size:11px;color:var(--muted);cursor:pointer;text-decoration:underline;}
+
+.fwpp{position:fixed;bottom:20px;right:20px;z-index:500;background:#25d366;color:#fff;border-radius:50%;width:52px;height:52px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.45);text-decoration:none;transition:transform .2s;}
+.fwpp:hover{transform:scale(1.1);}
+footer{text-align:center;padding:22px;border-top:1px solid var(--brd);color:var(--muted);font-size:12px;line-height:1.9;}
+.no-res{text-align:center;padding:60px 24px;color:var(--muted);}
+.no-res strong{color:var(--txt);display:block;font-size:16px;margin-bottom:8px;}
+@media(max-width:580px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:9px;}
+  .vgrid{grid-template-columns:repeat(2,1fr);}
+  .zres{display:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── BANNER CARROSSEL ── -->
+<div class="banner-wrap">
+  <div class="banner-track" id="bannerTrack">
+
+    <!-- Slide 1: Pix 5% OFF — Air Jordan 1 High -->
+    <div class="banner-slide" id="bs-0" data-host="yefactory" data-album="146238093">
+      <img id="bimg-0" src="" alt="Air Jordan 1 High" loading="eager" style="opacity:0;transition:opacity .5s;">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-tag">💚 Oferta especial</div>
+        <div class="banner-title">Pague no Pix<br><span style="color:var(--grn)">5% OFF</span></div>
+        <div class="banner-sub">Todos os modelos com desconto no Pix. Fale no WhatsApp e aproveite agora.</div>
+        <div class="banner-pix">💚 Pix = 5% de desconto em tudo</div>
+        <button class="banner-btn" onclick="wppDireto()">Aproveitar agora</button>
+      </div>
+    </div>
+
+    <!-- Slide 2: Jordan Collection — Air Jordan 4 -->
+    <div class="banner-slide" id="bs-1" data-host="ovosneaker" data-album="197032151">
+      <img id="bimg-1" src="" alt="Air Jordan 4" loading="lazy" style="opacity:0;transition:opacity .5s;">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-tag">Jordan · Nike</div>
+        <div class="banner-title">Air Jordan<br><span style="color:var(--cta)">Todos os Batches</span></div>
+        <div class="banner-sub">AJ1, AJ3, AJ4, AJ5, AJ6, AJ11 — mais de 30 variações exclusivas.</div>
+        <button class="banner-btn" onclick="switchTabById('nike')">Ver coleção Jordan</button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Adidas Samba -->
+    <div class="banner-slide" id="bs-2" data-host="ovosneaker" data-album="174595183">
+      <img id="bimg-2" src="" alt="Adidas Ultra Boost" loading="lazy" style="opacity:0;transition:opacity .5s;">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-tag">Adidas</div>
+        <div class="banner-title">Samba · Yeezy<br><span style="color:var(--cta)">Ultra Boost</span></div>
+        <div class="banner-sub">Corrida de elite, streetwear e hype. Adizero com placa de carbono.</div>
+        <button class="banner-btn" onclick="switchTabById('adidas')">Ver Adidas</button>
+      </div>
+    </div>
+
+    <!-- Slide 4: Corrida — HOKA Clifton 9 -->
+    <div class="banner-slide" id="bs-3" data-host="ovosneaker" data-album="237741004">
+      <img id="bimg-3" src="" alt="HOKA Clifton 9" loading="lazy" style="opacity:0;transition:opacity .5s;">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-tag">🏃 Performance</div>
+        <div class="banner-title">Corrida<br><span style="color:var(--grn)">de Elite</span></div>
+        <div class="banner-sub">HOKA, On Running, Adizero Pro, Vomero, Zoom Fly — para quem leva a corrida a sério.</div>
+        <button class="banner-btn" onclick="filterByModal('corrida')">Ver modelos de corrida</button>
+      </div>
+    </div>
+
+    <!-- Slide 5: Streetwear — Nike Dunk -->
+    <div class="banner-slide" id="bs-4" data-host="ovosneaker" data-album="173404536">
+      <img id="bimg-4" src="" alt="Nike Dunk" loading="lazy" style="opacity:0;transition:opacity .5s;">
+      <div class="banner-overlay"></div>
+      <div class="banner-content">
+        <div class="banner-tag">👟 Streetwear</div>
+        <div class="banner-title">Estilo<br><span style="color:var(--ylw)">nas Ruas</span></div>
+        <div class="banner-sub">Air Force 1, Nike Dunk, Air Max — os tênis que definem o streetwear em 2025.</div>
+        <button class="banner-btn" onclick="filterByModal('streetwear')">Ver streetwear</button>
+      </div>
+    </div>
+
+  </div>
+  <button class="barrow barrow-l" onclick="moveBanner(-1)">&#8249;</button>
+  <button class="barrow barrow-r" onclick="moveBanner(1)">&#8250;</button>
+  <div class="banner-dots" id="bannerDots"></div>
+</div>
+
+<!-- ── PIX STRIP ── -->
+<div class="pix-strip">💚 Pague no Pix e ganhe 5% de desconto em qualquer modelo · Fale no WhatsApp para aproveitar!</div>
+
+<!-- ── PROOF ── -->
+<div class="proof">
+  <div class="proof-in">
+    <div class="pi"><span class="pidot"></span>&nbsp;<strong>Qualidade</strong> verificada</div>
+    <div class="pi">🚚&nbsp;<strong>Entrega</strong> Brasil todo</div>
+    <div class="pi">💬&nbsp;<strong>Atendimento</strong> WhatsApp</div>
+    <div class="pi">💚&nbsp;<strong>Pix</strong> 5% OFF</div>
+    <div class="pi">⭐&nbsp;<strong>500+</strong> variações</div>
+  </div>
+</div>
+
+<!-- ── FILTROS ── -->
+<div class="fw" id="fw">
+  <div class="fg">
+    <div><label>🔍 Buscar</label><input class="finp" id="f-s" type="text" placeholder="Marca ou modelo..." oninput="applyF()"></div>
+    <div><label>🏷️ Marca</label>
+      <select class="fsel" id="f-b" onchange="applyF()">
+        <option value="">Todas</option>
+        <option value="Nike">Nike</option>
+        <option value="Adidas">Adidas</option>
+        <option value="New Balance">New Balance</option>
+        <option value="HOKA">HOKA</option>
+        <option value="On Running">On Running</option>
+        <option value="ASICS">ASICS</option>
+        <option value="Dior">Dior</option>
+        <option value="Golden Goose">Golden Goose</option>
+        <option value="Gucci">Gucci</option>
+        <option value="Louis Vuitton">Louis Vuitton</option>
+        <option value="Birkenstock">Birkenstock</option>
+        <option value="BAPE">BAPE</option>
+        <option value="Yeezy">Yeezy</option>
+        <option value="Lanvin">Lanvin</option>
+        <option value="Alexander McQueen">Alexander McQueen</option>
+        <option value="Timberland">Timberland</option>
+        <option value="Crocs">Crocs</option>
+      </select>
+    </div>
+    <div><label>🏃 Modalidade</label>
+      <select class="fsel" id="f-m" onchange="applyF()">
+        <option value="">Todas</option>
+        <option value="streetwear">Streetwear</option>
+        <option value="corrida">Corrida</option>
+        <option value="academia">Academia</option>
+        <option value="tenis">Tênis</option>
+        <option value="luxo">Luxo</option>
+        <option value="sandalia">Sandália</option>
+        <option value="skate">Skate</option>
+      </select>
+    </div>
+    <div><label>📦 Categoria</label>
+      <select class="fsel" id="f-c" onchange="applyF()">
+        <option value="">Todas</option>
+        <option value="nike">Nike / Jordan</option>
+        <option value="adidas">Adidas / Yeezy</option>
+        <option value="newbalance">New Balance</option>
+        <option value="hoka">HOKA</option>
+        <option value="on">On Running</option>
+        <option value="asics">ASICS</option>
+        <option value="luxo">Luxo & Collab</option>
+        <option value="outros">Outras marcas</option>
+      </select>
+    </div>
+  </div>
+  <div class="f-row">
+    <button class="f-reset" onclick="resetF()">✕ Limpar</button>
+    <div class="f-cnt" id="f-cnt"></div>
+  </div>
+</div>
+
+<div class="tw"><div class="tabs" id="tabsRow"></div></div>
+<div class="content" id="mc"></div>
+
+<!-- ── MODAL VARIAÇÕES ── -->
+<div class="vmod" id="vmod">
+  <div class="vmh">
+    <div class="vmh-left">
+      <div class="vmh-title" id="vmh-title"></div>
+      <div class="vmh-sub" id="vmh-sub"></div>
+    </div>
+    <div class="vmh-orig">✅ 100% Original</div>
+    <button class="vmx" onclick="closeVmod()">×</button>
+  </div>
+  <div class="vmb"><div class="vgrid" id="vgrid"></div></div>
+  <div class="vmfoot">
+    <div class="vm-sel-info" id="vm-sel-info"><strong>Selecione uma variação</strong>Clique para ver as fotos</div>
+    <button class="vmwpp" onclick="openNm()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Quero este modelo
+    </button>
+  </div>
+</div>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lbox" id="lbox">
+  <div class="lh">
+    <button class="lback" onclick="backToVmod()">← Variações</button>
+    <div class="lh-info"><div class="lh-t" id="lh-t"></div><div class="lh-m" id="lh-m"></div></div>
+    <button class="lx" onclick="closeLbox()">×</button>
+  </div>
+  <div class="lmain" id="lmain"><div class="lload"><div class="spin"></div><span>Carregando fotos...</span></div></div>
+  <div class="lthumbs" id="lthm"></div>
+  <div class="lfoot">
+    <span class="lcnt" id="lcnt"></span>
+    <button class="lwpp" onclick="openNm()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Tenho interesse
+    </button>
+  </div>
+</div>
+
+<!-- ── MODAL NOME ── -->
+<div class="nm" id="nm">
+  <div class="nm-box">
+    <div class="nm-t">Quase lá! 👟</div>
+    <div class="nm-s" id="nm-prod"></div>
+    <label class="nm-label">Seu nome</label>
+    <input class="nm-inp" id="nm-nome" type="text" placeholder="Como posso te chamar?" maxlength="50">
+    <div class="nm-btns">
+      <button class="nm-send" onclick="sendWpp()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Enviar
+      </button>
+      <button class="nm-skip" onclick="sendWpp(true)">Pular</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── POPUP ── -->
+<div class="pop" id="pop" onclick="if(event.target===this)closePop()">
+  <div class="popbox">
+    <div class="ppulse">👟 Não achou o modelo?</div>
+    <div class="pphoto">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80&auto=format" alt="">
+      <div class="pphoto-ov"></div>
+      <div class="pphoto-txt"><div class="pphoto-tag">Serviço exclusivo</div><div class="pphoto-h">A gente localiza pra você!</div></div>
+      <button class="px" onclick="closePop()">×</button>
+    </div>
+    <div class="pbody">
+      <div class="ptxt"><strong>Não encontrou o que queria?</strong>Localizamos qualquer modelo. E lembre: <strong style="color:var(--grn)">Pix tem 5% OFF!</strong></div>
+      <button class="pwpp" onclick="wppDireto('localizar');closePop()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chamar no WhatsApp
+      </button>
+      <div class="pskip" onclick="closePop()">Continuar navegando</div>
+    </div>
+  </div>
+</div>
+
+<a class="fwpp" href="#" onclick="wppDireto();return false;" title="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<footer id="pg-foot">Catálogo de Tênis · WhatsApp (21) 96997-0893<br>
+<span style="font-size:11px">💚 Pagamento no Pix tem 5% de desconto em qualquer modelo</span></footer>
+
+<script>
+const WPP='5521969970893';
+
+// ── BANNER ────────────────────────────────────────────────────────────────
+let bIdx=0,bTotal=5,bTimer;
+function buildDots(){
+  document.getElementById('bannerDots').innerHTML=[...Array(bTotal)].map((_,i)=>
+    '<div class="bdot'+(i===0?' on':'')+'" onclick="goBanner('+i+')"></div>'
+  ).join('');
+}
+function goBanner(i){
+  bIdx=i;
+  document.getElementById('bannerTrack').style.transform='translateX(-'+(i*100)+'%)';
+  document.querySelectorAll('.bdot').forEach(function(d,di){d.classList.toggle('on',di===i);});
+  clearInterval(bTimer);
+  bTimer=setInterval(function(){goBanner((bIdx+1)%bTotal);},5000);
+}
+function moveBanner(d){goBanner((bIdx+d+bTotal)%bTotal);}
+buildDots();
+bTimer=setInterval(function(){goBanner((bIdx+1)%bTotal);},5000);
+// Carrega fotos reais nos banners após 500ms
+setTimeout(function(){loadBannerPhotos();},500);
+
+// ── CAT ───────────────────────────────────────────────────────────────────
+const CAT=[
+  // ── PARTE 1 ─────────────────────────────────────────────────────────
+  {id:'aj1high',brand:'nike',marca:'Nike',modelo:'Air Jordan 1 High',modalidade:['streetwear','skate'],desc:'O ícone do basquete desde 1985.',uso:'Streetwear, eventos.',badge:null,host:'yefactory',catId:null,albums:['146238093','146238058','146238005','146237898','146237866','146237824','146237775','146237661','146237608','146237558','146237503','146237445','146237419','146237388','146237330','146237281','146237131','146237116','146235856','146235652','146236012','146236493','146236548','146235494','146236620','146235071']},
+  {id:'af1',brand:'nike',marca:'Nike',modelo:'Air Force 1',modalidade:['streetwear','skate'],desc:'Um dos mais vendidos da história.',uso:'Dia a dia, casual.',badge:null,host:'yefactory',catId:null,albums:['146361638','146361606','146361563','146361403','146361322','146361282','146361096','146361014','146360962','146360922','146360888','146360874','146336505','146235187','146233955']},
+  {id:'dunk',brand:'nike',marca:'Nike',modelo:'Nike Dunk Low',modalidade:['streetwear','skate'],desc:'Do basquete ao streetwear global.',uso:'Skate, streetwear.',badge:null,host:'ovosneaker',catId:null,albums:['173404536','173404535','173404534','148076903','148076734','148076317','141232188','141232170','141232161','166574529','166574274','166574140','166573870','166573733','166572010','166573993','166574559']},
+  {id:'aj4p1',brand:'nike',marca:'Nike',modelo:'Air Jordan 4',modalidade:['streetwear'],desc:'Grade de borracha e história desde 1989.',uso:'Looks premium.',badge:null,host:'ovosneaker',catId:null,albums:['197032151','197032129','197032235','197032220','197032269','197032015','197031988','197031963','197031426','197031369','197031254','197030700']},
+  {id:'airdn',brand:'nike',marca:'Nike',modelo:'Air Max DN',modalidade:['streetwear'],desc:'Janelas de Air duplas — visual futurista.',uso:'Streetwear, oversized.',badge:null,host:'ovosneaker',catId:null,albums:['237055384','236314427','230485624','222794236','222001196','222001138','218432718','216209934','213993347','211634813','211117253','212560342']},
+  {id:'nikemind',brand:'nike',marca:'Nike',modelo:'Nike Mind',modalidade:['corrida','streetwear'],desc:'Design futurista 2024/25.',uso:'Corrida moderada, urbano.',badge:null,host:'ovosneaker',catId:null,albums:['230766405','230766374','234937664','234937599','234711383','234711284','233721407','232065849','228368485','229606783','229073461','229073387','229073309','229073138','229073077','230574490']},
+  {id:'metcon9',brand:'nike',marca:'Nike',modelo:'Nike Metcon 9',modalidade:['academia'],desc:'Tênis de treino funcional de última geração. Estabilidade e tração superiores para CrossFit.',uso:'CrossFit, treinos funcionais, musculação, HIIT.',badge:'💪 Academia',host:'ovosneaker',catId:'4668260',albums:[],coverUrl:'https://imgcentauro-a.akamaihd.net/1300x1300/983527SOA2.jpg'},
+  {id:'metcon10',brand:'nike',marca:'Nike',modelo:'Nike Metcon 10 Masculino',modalidade:['academia'],desc:'10ª geração do tênis de CrossFit mais vendido do mundo. Placa Hyperlift, espuma ReactX e biqueira mais larga.',uso:'CrossFit, treinos funcionais, musculação, levantamento de peso.',badge:'💪 Academia',host:'ovosneaker',catId:'4668260',albums:[],coverUrl:'https://imgcentauro-a.akamaihd.net/1300x1300/997032A.jpg'},
+  {id:'metcon10b',brand:'nike',marca:'Nike',modelo:'Nike Metcon 10 Feminino',modalidade:['academia'],desc:'Versão feminina com Placa Hyperlift + espuma ReactX. Design exclusivo para mulheres.',uso:'CrossFit, levantamento de peso, HIIT, treinos funcionais.',badge:'💪 Academia',host:'ovosneaker',catId:'4668260',albums:[],coverUrl:'https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/7b5c8e1c-7c8b-4e1b-9b9c-1c2e3f4a5b6c/metcon-10-womens-workout-shoes.png',coverUrl:'https://imgcentauro-a.akamaihd.net/1300x1300/M17GHFA2.jpg'},
+  {id:'metcon',brand:'nike',marca:'Nike',modelo:'Nike Metcon 7',modalidade:['academia'],desc:'Favorito dos atletas de CrossFit.',uso:'CrossFit, musculação.',badge:'💪 Academia',host:'ovosneaker',catId:null,albums:['240115649','240115647','240115645','240115641','240115639']},
+  {id:'adpro4',brand:'adidas',marca:'Adidas',modelo:'Adizero Adios Pro 4',modalidade:['corrida'],desc:'Elite com placa de carbono.',uso:'Maratonas.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['224328636','224328629','224328626','224328621','224328616','224328612','224327317','224327309','224327308','224327301','224327298','224327293','224327264','224327261','224327257','224327253','224327243','224327239']},
+  {id:'adpro5',brand:'adidas',marca:'Adidas',modelo:'Adizero Adios Pro 5',modalidade:['corrida'],desc:'Lightstrike Pro aprimorado.',uso:'Alta performance.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['224440104','224440100','224440097','224440094','224440088','224440085']},
+  {id:'adevosl',brand:'adidas',marca:'Adidas',modelo:'Adizero Evo SL',modalidade:['corrida'],desc:'Placa de carbono acessível.',uso:'5km a meia maratona.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['224348723','224348722','224348719','224348714','224345377','224345375','224345374','224345373','224345365','224345363','224345355','224345351','224345348','224345346','224345342','224345335','224345333','224345329','224345327','224345325']},
+  {id:'ultraboost',brand:'adidas',marca:'Adidas',modelo:'Ultra Boost',modalidade:['corrida','streetwear'],desc:'Amortecimento Boost premiado.',uso:'Corridas leves, casual.',badge:null,host:'ovosneaker',catId:null,albums:['174595183','174595182','174595179','174595178','174671195','174671193','174671192','174671191','174671189','174671178']},
+  {id:'spezial',brand:'adidas',marca:'Adidas',modelo:'Handball Spezial',modalidade:['streetwear'],desc:'Ícone do streetwear europeu.',uso:'Looks minimalistas.',badge:null,host:'ovosneaker',catId:null,albums:['195848933','195848931','195848926','195848922','195848919','195848907','195848905','195848904','195848899','195848613','195848879']},
+  {id:'pharrell',brand:'adidas',marca:'Adidas',modelo:'Adidas × Pharrell Jellyfish',modalidade:['luxo'],desc:'Collab de colecionador.',uso:'Eventos, alto impacto.',badge:'🔥 Collab',host:'ovosneaker',catId:null,albums:['207948620','207948615','207948613','207948602','207948598','218656892','207948605','207948608','207948610']},
+  {id:'nb9060',brand:'newbalance',marca:'New Balance',modelo:'New Balance 9060',modalidade:['streetwear'],desc:'Chunky Y2K com conforto moderno.',uso:'Casual moderno.',badge:null,host:'ovosneaker',catId:null,albums:['174910769','174910746','174910730','174910694','174910571','174910564','174910554','174910542','174910531','174910520','174910509','174910497','174910480','174910473','174910455','174910440','174910084','174910053','174909879','174910021','174909615','174909722','174909691']},
+  {id:'clifton9',brand:'hoka',marca:'HOKA',modelo:'HOKA Clifton 9',modalidade:['corrida'],desc:'Solado maximalista da HOKA.',uso:'Corridas diárias.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['237741004','237710099','237710091','237710081','237709439','237709430','237709411','237709418','237709137','237709142','237708084','237708089','237707937','237707908','237708078','237707940','237709124']},
+  {id:'onitsuka',brand:'asics',marca:'ASICS',modelo:'Onitsuka Tiger',modalidade:['streetwear'],desc:'Herança japonesa dos anos 50.',uso:'Vintage, estilo japonês.',badge:null,host:'ovosneaker',catId:null,albums:['236866284','236866275','236866271','236865869','236865874','236865862','236865861','236865854','236864116','236864030','236864103','236864040','236864051','236864038']},
+  {id:'rogerpro',brand:'on',marca:'On Running',modelo:'The Roger Pro 2',modalidade:['tenis','streetwear'],desc:'Com Roger Federer. O court mais sofisticado.',uso:'Quadras de tênis, casual.',badge:null,host:'ovosneaker',catId:null,albums:['231514396','214259200','214259168','209129666','209129664','209129440','209129612','209129614']},
+  {id:'cm2',brand:'on',marca:'On Running',modelo:'Cloudmonster 2',modalidade:['corrida'],desc:'Amortecimento máximo CloudTec.',uso:'Corridas longas.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['220387312','214257967','209563148','209563111','209563063','209563013','209563033','209562970','209562882','209562756','209562780','209562706','209562735','209563172']},
+  {id:'cm3',brand:'on',marca:'On Running',modelo:'Cloudmonster 3',modalidade:['corrida'],desc:'3ª geração mais leve.',uso:'Treinos intensos.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['237071294','237071266','237071201','237071181','237071124','233519855','233519841','233519823','231519546','227550546']},
+  {id:'spike',brand:'on',marca:'On Running',modelo:'Cloudspike Amplius',modalidade:['corrida'],desc:'Spike de pista para velocidade.',uso:'Provas de pista.',badge:'🏃 Performance',host:'ovosneaker',catId:null,albums:['237068087','209131684','209131670','209131652','209131636','209131622','209131605','209131576','209131565','209131538']},
+  {id:'onloewe',brand:'on',marca:'On Running',modelo:'On × Loewe Cloudtilt',modalidade:['luxo'],desc:'Performance suíça com a Loewe.',uso:'Alta moda.',badge:'🔥 Collab',host:'ovosneaker',catId:null,albums:['235822965','235822963','235822961','235822952','235822950','235822947','235822945','235822942','235822935','235822925']},
+  {id:'gg',brand:'outros',marca:'Golden Goose',modelo:'Golden Goose Super Star',modalidade:['luxo'],desc:'Luxo italiano com acabamento distressed.',uso:'Eventos premium.',badge:'✨ Luxo',host:'ovosneaker',catId:'739301',albums:['241099090','241098873','239895871','239895866','239895856','239895831','239895820','239895816','239895741','239895798','239895718']},
+  {id:'birk',brand:'outros',marca:'Birkenstock',modelo:'Birkenstock',modalidade:['sandalia'],desc:'Sandália alemã com 250 anos de história.',uso:'Praia, casa, casual.',badge:null,host:'ovosneaker',catId:null,albums:['202962116','202962115','202962114','202962111','202962110','202962109','202962107','202962106','202962100','202962097','202962042','202962764','202962760','202962758','202962757','202962754','202962752','202962750','202962748','202962747','202962746','202962741','236062773','236062763','236062770','236061962','236061769','236061747','236061947','236061740']},
+  {id:'bape',brand:'outros',marca:'BAPE',modelo:'BAPE STA',modalidade:['streetwear'],desc:'Ícone japonês do hype global.',uso:'Streetwear, grife.',badge:'🔥 Hype',host:'ovosneaker',catId:'739299',albums:['175709453','175707269','175707266','175707264','175707261','175707258','175707215','175707212','175709455','175707207','175707205','175707202','175705175','175705172']},
+
+  // ── PARTE 2 ─────────────────────────────────────────────────────────
+  // Jordan
+  {id:'aj1_dt_low',brand:'nike',marca:'Nike',modelo:'Air Jordan 1 Low',modalidade:['streetwear','skate'],desc:'J1 Low batch premium DT.',uso:'Streetwear, skate.',badge:null,host:'ovosneaker',catId:'754422',albums:[]},
+  {id:'aj1_travis',brand:'nike',marca:'Nike',modelo:'Air Jordan 1 × Travis Scott',modalidade:['streetwear'],desc:'Travis Scott collab — PK4.0.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'718673',albums:[]},
+  {id:'aj3',brand:'nike',marca:'Nike',modelo:'Air Jordan 3',modalidade:['streetwear'],desc:'Clássico com air visível.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'5027943',albums:[]},
+  {id:'aj5',brand:'nike',marca:'Nike',modelo:'Air Jordan 5',modalidade:['streetwear'],desc:'J5 OG batch.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'714939',albums:[]},
+  {id:'aj6',brand:'nike',marca:'Nike',modelo:'Air Jordan 6',modalidade:['streetwear'],desc:'J6 OG batch.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'719570',albums:[]},
+  {id:'aj11',brand:'nike',marca:'Nike',modelo:'Air Jordan 11',modalidade:['streetwear'],desc:'FT Batch clássico.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4293862',albums:[]},
+  // Nike Corrida
+  {id:'vomero5',brand:'nike',marca:'Nike',modelo:'Nike Vomero 5',modalidade:['streetwear','corrida'],desc:'Retro streetwear hype.',uso:'Streetwear, corrida leve.',badge:null,host:'ovosneaker',catId:'645265',albums:[]},
+  {id:'vomero18_gt',brand:'nike',marca:'Nike',modelo:'Nike Vomero 18',modalidade:['corrida'],desc:'Corrida diária premium.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'609678',albums:[]},
+  {id:'pegasus',brand:'nike',marca:'Nike',modelo:'Nike Pegasus',modalidade:['corrida'],desc:'YH Batch corrida diária.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'615346',albums:[]},
+  {id:'invincible',brand:'nike',marca:'Nike',modelo:'Nike ZoomX Invincible Run FK3',modalidade:['corrida'],desc:'GK Batch máx. amortecimento.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'467331',albums:[]},
+  {id:'zoomfly6',brand:'nike',marca:'Nike',modelo:'Nike Zoom Fly 6',modalidade:['corrida'],desc:'XE Batch — sem carbono.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'558942',albums:[]},
+  {id:'zoomfly6c',brand:'nike',marca:'Nike',modelo:'Nike Zoom Fly 6 com Carbono',modalidade:['corrida'],desc:'RS Batch — elite com carbono.',uso:'Corridas competitivas.',badge:'🏃 Performance',host:'ovosneaker',catId:'558943',albums:[]},
+  // Nike Air Max
+  {id:'amtn',brand:'nike',marca:'Nike',modelo:'Air Max TN Plus',modalidade:['streetwear'],desc:'Max Batch streetwear.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'636196',albums:[]},
+  {id:'am90',brand:'nike',marca:'Nike',modelo:'Air Max 90',modalidade:['streetwear'],desc:'Clássico absoluto.',uso:'Dia a dia.',badge:null,host:'ovosneaker',catId:'700029',albums:[]},
+  {id:'am95',brand:'nike',marca:'Nike',modelo:'Air Max 95',modalidade:['streetwear'],desc:'GX Batch premium.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'670322',albums:[]},
+  {id:'am97',brand:'nike',marca:'Nike',modelo:'Air Max 97',modalidade:['streetwear'],desc:'Retro clássico.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'670325',albums:[]},
+  {id:'am1_travis',brand:'nike',marca:'Nike',modelo:'Air Max 1 × Travis Scott',modalidade:['streetwear'],desc:'Top Batch collab.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'670329',albums:[]},
+  {id:'amplus',brand:'nike',marca:'Nike',modelo:'Air Max Plus',modalidade:['streetwear'],desc:'WM Batch.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'670330',albums:[]},
+  // Nike AF1
+  {id:'af1_g',brand:'nike',marca:'Nike',modelo:'Air Force 1 Low',modalidade:['streetwear','skate'],desc:'Classic low.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'718675',albums:[]},
+  {id:'af1_shadow',brand:'nike',marca:'Nike',modelo:'Air Force 1 Shadow',modalidade:['streetwear'],desc:'Feminino lifestyle.',uso:'Feminino.',badge:null,host:'ovosneaker',catId:'676567',albums:[]},
+  {id:'af1_1v',brand:'nike',marca:'Nike',modelo:'Air Force 1 × 1V Collab',modalidade:['streetwear'],desc:'X1 Batch collab.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'676570',albums:[]},
+  // Nike Outros
+  {id:'nocta',brand:'nike',marca:'Nike',modelo:'NOCTA × Nike Hot Step 2',modalidade:['streetwear'],desc:'PE Batch — Drake collab.',uso:'Streetwear.',badge:'🔥 Collab',host:'ovosneaker',catId:'508091',albums:[]},
+  {id:'p6000',brand:'nike',marca:'Nike',modelo:'Nike P-6000',modalidade:['streetwear'],desc:'CS Batch lifestyle.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'533161',albums:[]},
+  {id:'kobe_gx',brand:'nike',marca:'Nike',modelo:'Nike Kobe',modalidade:['streetwear'],desc:'Kobe basquete.',uso:'Basquete, streetwear.',badge:null,host:'ovosneaker',catId:'661927',albums:[]},
+  // Adidas
+  {id:'adevosl2',brand:'adidas',marca:'Adidas',modelo:'Adizero Evo SL 2ª Geração',modalidade:['corrida'],desc:'Versão 2025.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'747501',albums:[]},
+  {id:'adios_evo1',brand:'adidas',marca:'Adidas',modelo:'Adios Pro Evo 1',modalidade:['corrida'],desc:'Elite R$2.000+ original.',uso:'Maratona elite.',badge:'🏃 Performance',host:'ovosneaker',catId:'518363',albums:[]},
+  {id:'boston13',brand:'adidas',marca:'Adidas',modelo:'Adidas Boston 13',modalidade:['corrida'],desc:'Corrida de velocidade.',uso:'Treinos rápidos.',badge:'🏃 Performance',host:'ovosneaker',catId:'671853',albums:[]},
+  {id:'hyperboost',brand:'adidas',marca:'Adidas',modelo:'Adidas HyperBoost Edge',modalidade:['corrida'],desc:'Novo 2026.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'893944',albums:[]},
+  {id:'ub40',brand:'adidas',marca:'Adidas',modelo:'Ultraboost 4.0',modalidade:['corrida','streetwear'],desc:'Clássico Boost.',uso:'Corrida, casual.',badge:null,host:'ovosneaker',catId:'453281',albums:[]},
+  {id:'ub80',brand:'adidas',marca:'Adidas',modelo:'Ultraboost 8.0',modalidade:['corrida','streetwear'],desc:'Versão premium.',uso:'Corrida.',badge:null,host:'ovosneaker',catId:'525128',albums:[]},
+  {id:'samba_s2',brand:'adidas',marca:'Adidas',modelo:'Adidas Samba',modalidade:['streetwear'],desc:'Topo qualidade.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'464967',albums:[]},
+  {id:'campus_goat',brand:'adidas',marca:'Adidas',modelo:'Campus 00s',modalidade:['streetwear'],desc:'Goat topo.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'693023',albums:[]},
+  {id:'forum_bb',brand:'adidas',marca:'Adidas',modelo:'Forum Low × Bad Bunny',modalidade:['streetwear'],desc:'Collab Bad Bunny.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'693025',albums:[]},
+  {id:'superstar',brand:'adidas',marca:'Adidas',modelo:'Adidas Superstar',modalidade:['streetwear'],desc:'Clássico shell toe.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'784932',albums:[]},
+  {id:'gazelle',brand:'adidas',marca:'Adidas',modelo:'Gazelle Bold',modalidade:['streetwear'],desc:'CS Batch feminino.',uso:'Feminino.',badge:null,host:'ovosneaker',catId:'596196',albums:[]},
+  {id:'yeezy350',brand:'adidas',marca:'Adidas',modelo:'Yeezy Boost 350',modalidade:['streetwear'],desc:'Hype clássico.',uso:'Streetwear.',badge:'🔥 Hype',host:'ovosneaker',catId:'738430',albums:[]},
+  {id:'yeezy700',brand:'adidas',marca:'Adidas',modelo:'Yeezy 500 / 700',modalidade:['streetwear'],desc:'Lifestyle LW.',uso:'Streetwear.',badge:'🔥 Hype',host:'ovosneaker',catId:'738432',albums:[]},
+  {id:'yeezy_slide',brand:'adidas',marca:'Adidas',modelo:'Yeezy Slide',modalidade:['sandalia'],desc:'Sandália hype.',uso:'Casa, casual.',badge:'🔥 Hype',host:'ovosneaker',catId:'738433',albums:[]},
+  // New Balance
+  {id:'nb9060_miumiu',brand:'newbalance',marca:'New Balance',modelo:'New Balance 9060 × Miu Miu',modalidade:['luxo'],desc:'Collab fashion.',uso:'Luxo, streetwear.',badge:'🔥 Collab',host:'ovosneaker',catId:'544125',albums:[]},
+  {id:'nb_fuel',brand:'newbalance',marca:'New Balance',modelo:'New Balance FuelCell Rebel V4',modalidade:['corrida'],desc:'Z Batch velocidade.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'447492',albums:[]},
+  {id:'nb530',brand:'newbalance',marca:'New Balance',modelo:'New Balance 530',modalidade:['streetwear'],desc:'Retro lifestyle.',uso:'Casual.',badge:null,host:'ovosneaker',catId:'544125',albums:[]},
+  // HOKA
+  {id:'bondi9',brand:'hoka',marca:'HOKA',modelo:'HOKA Bondi 9',modalidade:['corrida'],desc:'Máximo amortecimento.',uso:'Corridas longas.',badge:'🏃 Performance',host:'ovosneaker',catId:'558052',albums:[]},
+  // On Running
+  {id:'on_cloud_pe',brand:'on',marca:'On Running',modelo:'On Cloud',modalidade:['corrida','streetwear'],desc:'PE Batch linha Cloud.',uso:'Corrida, casual.',badge:null,host:'ovosneaker',catId:'558951',albums:[]},
+  // Dior
+  {id:'dior_b30',brand:'luxo',marca:'Dior',modelo:'Dior B30',modalidade:['luxo'],desc:'ZC Batch luxury lifestyle.',uso:'Eventos premium.',badge:'✨ Luxo',host:'ovosneaker',catId:'739297',albums:[]},
+  {id:'dior_b22',brand:'luxo',marca:'Dior',modelo:'Dior B22',modalidade:['luxo'],desc:'X1 Batch luxury.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'739296',albums:[]},
+  {id:'dior_b27',brand:'luxo',marca:'Dior',modelo:'Dior B27',modalidade:['luxo'],desc:'YH Batch luxury.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'754644',albums:[]},
+  {id:'dior_b33',brand:'luxo',marca:'Dior',modelo:'Dior B33 × Denim Tears',modalidade:['luxo'],desc:'Collab streetwear.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'739295',albums:[]},
+  // Gucci / GGDB / LV
+  {id:'gucci',brand:'luxo',marca:'Gucci',modelo:'Gucci Screener',modalidade:['luxo'],desc:'X1 luxury collab.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'739303',albums:[]},
+  {id:'lv_am',brand:'luxo',marca:'Louis Vuitton',modelo:'Louis Vuitton Trainer',modalidade:['luxo'],desc:'Luxury streetwear.',uso:'Eventos premium.',badge:'✨ Luxo',host:'ovosneaker',catId:'739289',albums:[]},
+  // Outros
+  {id:'lanvin',brand:'outros',marca:'Lanvin',modelo:'Lanvin Curb',modalidade:['luxo'],desc:'X1 luxury streetwear.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'5007585',albums:[]},
+  {id:'mcqueen',brand:'outros',marca:'Alexander McQueen',modelo:'Alexander McQueen',modalidade:['luxo'],desc:'X1 luxury sneaker.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'895915',albums:[]},
+  {id:'mihara',brand:'outros',marca:'Mihara Yasuhiro',modelo:'Mihara Yasuhiro',modalidade:['luxo'],desc:'Fashion avantgarde.',uso:'Fashion week.',badge:'✨ Luxo',host:'ovosneaker',catId:'895921',albums:[]},
+  {id:'timberland',brand:'outros',marca:'Timberland',modelo:'Timberland 6 inch',modalidade:['streetwear'],desc:'Bota clássica.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'689974',albums:[]},
+  {id:'crocs',brand:'outros',marca:'Crocs',modelo:'Crocs Classic Clog',modalidade:['sandalia'],desc:'Lifestyle casual.',uso:'Casa, casual.',badge:null,host:'ovosneaker',catId:'4913782',albums:[]},
+  // ── PARTE 2 — MODELOS FALTANTES ──────────────────────────────────────
+
+  // Jordan 1 — batches faltantes
+  {id:'aj1_k_mid',brand:'nike',marca:'Nike',modelo:'Air Jordan 1 Mid',modalidade:['streetwear'],desc:'J1 Mid K batch.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'670305',albums:[]},
+
+  // Nike Corrida — faltantes
+  {id:'pegtrail5',brand:'nike',marca:'Nike',modelo:'Nike Pegasus Trail 5',modalidade:['corrida'],desc:'ReactX corrida e trilha.',uso:'Trail, corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'517500',albums:[]},
+
+  // Nike Air Max — faltantes
+
+  // Nike AF1 — faltantes
+
+  // Nike Outros — faltantes
+
+  // Adidas Performance — faltantes
+  {id:'adevosl_exo',brand:'adidas',marca:'Adidas',modelo:'Adizero Evo SL EXO',modalidade:['corrida'],desc:'HD Batch EXO.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'781653',albums:[]},
+  {id:'agravic',brand:'adidas',marca:'Adidas',modelo:'Adidas Agravic Speed 2',modalidade:['corrida'],desc:'SY Batch trilha.',uso:'Trail running.',badge:'🏃 Performance',host:'ovosneaker',catId:'836627',albums:[]},
+  {id:'ub5',brand:'adidas',marca:'Adidas',modelo:'Ultraboost 5',modalidade:['corrida','streetwear'],desc:'Corrida e lifestyle.',uso:'Corrida, casual.',badge:null,host:'ovosneaker',catId:'505760',albums:[]},
+  {id:'adpro3_hd',brand:'adidas',marca:'Adidas',modelo:'Adizero Adios Pro 3',modalidade:['corrida'],desc:'HD Batch versão 3.',uso:'Corrida elite.',badge:'🏃 Performance',host:'ovosneaker',catId:'781489',albums:[]},
+  {id:'duramo_hd',brand:'adidas',marca:'Adidas',modelo:'Adizero Duramo RC',modalidade:['corrida'],desc:'HD Batch treino.',uso:'Treino.',badge:'🏃 Performance',host:'ovosneaker',catId:'781651',albums:[]},
+
+  // Adidas HD Batch — faltantes
+  {id:'ad_equip',brand:'adidas',marca:'Adidas',modelo:'Adidas Equipment Adios Pro',modalidade:['corrida'],desc:'HD Equipment.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'782608',albums:[]},
+  {id:'taekwondo',brand:'adidas',marca:'Adidas',modelo:'Adizero Taekwondo',modalidade:['streetwear'],desc:'Retro lifestyle.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'782610',albums:[]},
+
+  // Adidas Lifestyle — faltantes
+  {id:'forum84',brand:'adidas',marca:'Adidas',modelo:'Forum 84 Low',modalidade:['streetwear'],desc:'Retro basquete 80s.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'693021',albums:[]},
+  {id:'stan_smith',brand:'adidas',marca:'Adidas',modelo:'Stan Smith Mule',modalidade:['streetwear'],desc:'Casual lifestyle.',uso:'Casual.',badge:null,host:'ovosneaker',catId:'693020',albums:[]},
+  {id:'sl72',brand:'adidas',marca:'Adidas',modelo:'SL 72 RS',modalidade:['streetwear'],desc:'CS Batch retro.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'596197',albums:[]},
+  {id:'yeezy_foam',brand:'adidas',marca:'Adidas',modelo:'Yeezy Foam Runner',modalidade:['streetwear'],desc:'Hype lifestyle.',uso:'Casual.',badge:'🔥 Hype',host:'ovosneaker',catId:'738434',albums:[]},
+
+  // New Balance — faltantes
+  {id:'nb1906',brand:'newbalance',marca:'New Balance',modelo:'New Balance 1906',modalidade:['streetwear'],desc:'M Batch lifestyle.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb2002r',brand:'newbalance',marca:'New Balance',modelo:'New Balance 2002R',modalidade:['streetwear'],desc:'Retro corrida.',uso:'Lifestyle.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb1080',brand:'newbalance',marca:'New Balance',modelo:'New Balance 1080 V13',modalidade:['corrida'],desc:'Corrida diária.',uso:'Corrida.',badge:'🏃 Performance',host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb550',brand:'newbalance',marca:'New Balance',modelo:'New Balance 550',modalidade:['streetwear'],desc:'Retro basquete.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb530_miu',brand:'newbalance',marca:'New Balance',modelo:'New Balance 530 × Miu Miu',modalidade:['luxo'],desc:'Collab fashion.',uso:'Luxo, streetwear.',badge:'🔥 Collab',host:'ovosneaker',catId:'544125',albums:[]},
+  {id:'nb740',brand:'newbalance',marca:'New Balance',modelo:'New Balance 740',modalidade:['streetwear'],desc:'DT Batch retro.',uso:'Lifestyle.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb1000',brand:'newbalance',marca:'New Balance',modelo:'New Balance 1000',modalidade:['streetwear'],desc:'Chunky lifestyle.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb2000',brand:'newbalance',marca:'New Balance',modelo:'New Balance 2000',modalidade:['streetwear'],desc:'Retro 2000.',uso:'Lifestyle.',badge:null,host:'ovosneaker',catId:'4972874',albums:[]},
+  {id:'nb_campus',brand:'newbalance',marca:'New Balance',modelo:'New Balance Campus 00s',modalidade:['streetwear'],desc:'SY Batch promo.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'501285',albums:[]},
+
+  // HOKA — faltantes
+  {id:'speedgoat7',brand:'hoka',marca:'HOKA',modelo:'HOKA Speedgoat 7',modalidade:['corrida'],desc:'Trail máxima tração.',uso:'Trail running.',badge:'🏃 Performance',host:'ovosneaker',catId:'4668260',albums:[]},
+
+  // On Running — faltantes
+  {id:'on_kids',brand:'on',marca:'On Running',modelo:'On Cloud Kids',modalidade:['corrida'],desc:'Linha infantil On.',uso:'Infantil.',badge:null,host:'ovosneaker',catId:'4847988',albums:[]},
+
+  // ASICS — faltantes
+  {id:'asics_gt2160',brand:'asics',marca:'ASICS',modelo:'ASICS GT-2160',modalidade:['streetwear'],desc:'Streetwear hype retro.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4668260',albums:[]},
+  {id:'gel_nyc',brand:'asics',marca:'ASICS',modelo:'ASICS Gel-NYC',modalidade:['streetwear'],desc:'Streetwear hype.',uso:'Streetwear.',badge:null,host:'ovosneaker',catId:'4668260',albums:[]},
+
+  // Outras Marcas — faltantes
+  {id:'alo',brand:'outros',marca:'Alo',modelo:'Alo Recovery Mode',modalidade:['academia'],desc:'M Batch wellness.',uso:'Pós-treino, casual.',badge:null,host:'ovosneaker',catId:'653714',albums:[]},
+  {id:'puma',brand:'outros',marca:'Puma',modelo:'Puma Suede',modalidade:['streetwear','corrida'],desc:'Clássico e corrida.',uso:'Streetwear, corrida.',badge:null,host:'ovosneaker',catId:'4668260',albums:[]},
+
+  // Dior — faltantes
+  {id:'dior_b27cd',brand:'luxo',marca:'Dior',modelo:'Dior B27CD',modalidade:['luxo'],desc:'X1 collab premium.',uso:'Eventos.',badge:'✨ Luxo',host:'ovosneaker',catId:'754643',albums:[]},
+  {id:'dior_b9s',brand:'luxo',marca:'Dior',modelo:'Dior B9S × ERL',modalidade:['luxo'],desc:'Fashion collab.',uso:'Colecionador.',badge:'🔥 Collab',host:'ovosneaker',catId:'754642',albums:[]},
+  {id:'dior_slide',brand:'luxo',marca:'Dior',modelo:'Dior Aqua Slide',modalidade:['sandalia'],desc:'Luxury slide.',uso:'Verão, casual.',badge:'✨ Luxo',host:'ovosneaker',catId:'848386',albums:[]},
+
+  // GGDB / Gucci — faltantes
+
+];
+
+// ── TABS ──────────────────────────────────────────────────────────────────
+const TABS=[
+  {id:'all',label:'Todos'},
+  {id:'nike',label:'Nike / Jordan'},
+  {id:'adidas',label:'Adidas / Yeezy'},
+  {id:'newbalance',label:'New Balance'},
+  {id:'hoka',label:'HOKA'},
+  {id:'on',label:'On Running'},
+  {id:'asics',label:'ASICS'},
+  {id:'luxo',label:'Luxo'},
+  {id:'outros',label:'Outros'}
+];
+
+// ── ESTADO ────────────────────────────────────────────────────────────────
+var activeTab='all';
+var vmodItem=null;
+var selectedAlbum=null;
+var selectedCover=null;
+var lboxPhotos=[];
+var lboxIdx=0;
+
+// ── CACHE ─────────────────────────────────────────────────────────────────
+var CACHE={};
+var LOADING={};
+
+function mLabel(m){
+  var map={streetwear:'Streetwear',corrida:'Corrida',academia:'Academia',
+           tenis:'Tenis',luxo:'Luxo',sandalia:'Sandalia',skate:'Skate'};
+  return map[m]||m;
+}
+
+function pUrl(host,id,size){
+  size=size||'medium';
+  return '/functions/yupoo-img?host='+host+'&id='+id+'&size='+size;
+}
+
+// ── FETCH ─────────────────────────────────────────────────────────────────
+async function fetchAlbum(host,albumId){
+  var key=host+':'+albumId;
+  if(CACHE[key]!==undefined) return CACHE[key];
+  if(LOADING[key]) return null;
+  LOADING[key]=true;
+  try{
+    var url='/functions/yupoo?type=album&host='+host+'&id='+albumId;
+    console.log('[fetchAlbum] fetching '+url);
+    var res=await fetch(url);
+    console.log('[fetchAlbum] status='+res.status);
+    if(!res.ok) throw new Error('http '+res.status);
+    var data=await res.json();
+    console.log('[fetchAlbum] photos=', data.photos&&data.photos.length);
+    CACHE[key]=(data.photos&&data.photos.length)?{cover:data.photos[0],photos:data.photos}:null;
+    return CACHE[key];
+  }catch(e){console.error('[fetchAlbum] error',e);CACHE[key]=null;return null;}
+  finally{LOADING[key]=false;}
+}
+
+async function fetchCatAlbums(host,catId){
+  var key='cat:'+host+':'+catId;
+  if(CACHE[key]!==undefined) return CACHE[key];
+  if(LOADING[key]) return null;
+  LOADING[key]=true;
+  try{
+    var res=await fetch('/functions/yupoo?type=cat&host='+host+'&id='+catId);
+    if(!res.ok) throw new Error('http '+res.status);
+    var data=await res.json();
+    CACHE[key]=(data.albums&&data.albums.length)?data.albums:null;
+    return CACHE[key];
+  }catch(e){CACHE[key]=null;return null;}
+  finally{LOADING[key]=false;}
+}
+
+async function getAlbums(item){
+  if(item.albums&&item.albums.length) return item.albums;
+  if(item.catId){
+    var ids=await fetchCatAlbums(item.host,item.catId);
+    return ids||[];
+  }
+  return [];
+}
+
+// ── BANNERS ───────────────────────────────────────────────────────────────
+async function loadBannerPhotos(){
+  var slides=[
+    {host:'yefactory',album:'146238093'},
+    {host:'ovosneaker',album:'197032151'},
+    {host:'ovosneaker',album:'174595183'},
+    {host:'ovosneaker',album:'237741004'},
+    {host:'ovosneaker',album:'173404536'}
+  ];
+  for(var i=0;i<slides.length;i++){
+    var s=slides[i];
+    var r=await fetchAlbum(s.host,s.album);
+    if(r&&r.cover){
+      var img=document.getElementById('bimg-'+i);
+      if(img){img.src=pUrl(s.host,r.cover,'medium');img.style.opacity='1';}
+    }
+  }
+}
+
+// ── LAZY LOAD CAPAS ───────────────────────────────────────────────────────
+var obsMain=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(!e.isIntersecting) return;
+    obsMain.unobserve(e.target);
+    loadMainCover(e.target);
+  });
+},{rootMargin:'400px'});
+
+async function loadMainCover(el){
+  var item=CAT.find(function(i){return i.id===el.dataset.itemid;});
+  if(!item) return;
+  var albums=await getAlbums(item);
+  if(!albums.length) return;
+  var r=await fetchAlbum(item.host,albums[0]);
+  if(!r) return;
+  var img=el.querySelector('img');
+  if(!img) return;
+  img.src=pUrl(item.host,r.cover);
+  img.onload=function(){img.classList.add('vis');el.classList.add('ok');};
+}
+
+var obsVar=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(!e.isIntersecting) return;
+    obsVar.unobserve(e.target);
+    loadVarCover(e.target);
+  });
+},{rootMargin:'200px'});
+
+async function loadVarCover(el){
+  var host=el.dataset.host,albumId=el.dataset.album;
+  console.log('[loadVarCover] host='+host+' albumId='+albumId);
+  var r=await fetchAlbum(host,albumId);
+  console.log('[loadVarCover] result=', r);
+  if(!r) return;
+  var img=el.querySelector('img');
+  if(!img) return;
+  var url=pUrl(host,r.cover);
+  console.log('[loadVarCover] imgUrl='+url);
+  img.src=url;
+  img.onload=function(){img.classList.add('vis');el.classList.add('ok');};
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────
+function renderTabs(){
+  document.getElementById('tabsRow').innerHTML=TABS.map(function(t){
+    return '<button class="tb'+(t.id===activeTab?' active':'')+'" onclick="switchTab(\''+t.id+'\',this)">'+t.label+'</button>';
+  }).join('');
+}
+
+function switchTab(id,btn){
+  activeTab=id;
+  document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  applyF();
+}
+
+function switchTabById(id){
+  activeTab=id;
+  document.querySelectorAll('.tb').forEach(function(b){
+    b.classList.toggle('active',b.textContent.trim()===(TABS.find(function(t){return t.id===id;})||{}).label);
+  });
+  applyF();
+  document.getElementById('fw').scrollIntoView({behavior:'smooth'});
+}
+
+function filterByModal(m){
+  document.getElementById('f-m').value=m;
+  activeTab='all';
+  document.querySelectorAll('.tb').forEach(function(b,i){b.classList.toggle('active',i===0);});
+  applyF();
+  document.getElementById('fw').scrollIntoView({behavior:'smooth'});
+}
+
+function getFiltered(){
+  var q=document.getElementById('f-s').value.toLowerCase().trim();
+  var b=document.getElementById('f-b').value;
+  var m=document.getElementById('f-m').value;
+  var cat=document.getElementById('f-c').value;
+  return CAT.filter(function(i){
+    if(activeTab!=='all'&&i.brand!==activeTab) return false;
+    if(q&&!i.modelo.toLowerCase().includes(q)&&!i.marca.toLowerCase().includes(q)) return false;
+    if(b&&i.marca!==b) return false;
+    if(m&&!i.modalidade.includes(m)) return false;
+    if(cat&&i.brand!==cat) return false;
+    return true;
+  });
+}
+
+function applyF(){
+  var f=getFiltered();
+  document.getElementById('f-cnt').innerHTML='<span>'+f.length+'</span> modelo'+(f.length!==1?'s':'');
+  renderContent(f);
+}
+
+function resetF(){
+  ['f-s','f-b','f-m','f-c'].forEach(function(id){document.getElementById(id).value='';});
+  applyF();
+}
+
+function renderContent(filtered){
+  console.log('renderContent called with', filtered.length, 'items');
+  var mc=document.getElementById('mc');
+  if(!mc){ console.error('div#mc not found!'); return; }
+  if(!filtered.length){
+    mc.innerHTML='<div class="no-res"><strong>Nenhum modelo encontrado</strong><a href="#" onclick="wppDireto();return false;" style="color:var(--cta)">Fale no WhatsApp</a></div>';
+    return;
+  }
+  var marcas=[...new Set(filtered.map(function(i){return i.marca;}))];
+  mc.innerHTML=marcas.map(function(marca){
+    var items=filtered.filter(function(i){return i.marca===marca;});
+    return '<div class="sec">'+
+      '<div class="sec-hd"><div class="sec-t">'+marca+'</div><div class="sec-c">'+items.length+' modelo'+(items.length>1?'s':'')+'</div></div>'+
+      '<div class="sec-tip"><strong>Indicacao de uso</strong>'+
+        items.map(function(i){return '<span style="display:inline-block;margin-right:12px"><em style="color:#999">'+i.modelo+':</em> '+i.uso+'</span>';}).join('')+
+      '</div>'+
+      '<div class="grid">'+items.map(buildCard).join('')+'</div>'+
+    '</div>';
+  }).join('');
+  document.querySelectorAll('.mci[data-itemid]').forEach(function(el){obsMain.observe(el);});
+}
+
+function buildCard(item){
+  var idx=CAT.indexOf(item);
+  var varLabel=item.albums.length>0?'<div class="var-count">'+item.albums.length+' var.</div>':'';
+  var badge=item.badge?'<div class="cbadge">'+item.badge+'</div>':'<div class="qdot"></div>';
+  var coverSrc=item.coverUrl||'';
+  var ciClass=coverSrc?'mci ok':'mci loading';
+  var imgHtml=coverSrc
+    ?'<img src="'+coverSrc+'" alt="'+item.modelo+'" loading="lazy" onload="this.classList.add(\'vis\')" onerror="this.closest(\'.mci\').classList.add(\'loading\')">'
+    :'<img src="" alt="'+item.modelo+'" loading="lazy">';
+  return '<div class="mcard" onclick="openVmod('+idx+')">'+
+    '<div class="'+ciClass+'" data-itemid="'+item.id+'">'+
+      imgHtml+
+      '<div class="mci-ov"><span>Ver variacoes</span></div>'+
+      badge+varLabel+
+    '</div>'+
+    '<div class="mcb">'+
+      '<div class="mcm">'+item.marca+'</div>'+
+      '<div class="mcn">'+item.modelo+'</div>'+
+      '<div class="mct">'+item.modalidade.map(mLabel).join(' / ')+'</div>'+
+      '<button class="bw" onclick="event.stopPropagation();vmodItem=CAT['+idx+'];selectedAlbum=null;selectedCover=null;openNm()">'+
+        'Tenho interesse'+
+      '</button>'+
+    '</div>'+
+  '</div>';
+}
+
+// ── MODAL VARIACOES ───────────────────────────────────────────────────────
+async function openVmod(catIdx){
+  vmodItem=CAT[catIdx];
+  selectedAlbum=null;selectedCover=null;
+  document.getElementById('vmh-title').textContent=vmodItem.modelo;
+  document.getElementById('vm-sel-info').innerHTML='<strong>Selecione uma variacao</strong>Clique para ver as fotos';
+  document.getElementById('vgrid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted)"><div class="spin" style="margin:0 auto 10px"></div>Carregando...</div>';
+  document.getElementById('vmod').classList.add('open');
+  document.body.style.overflow='hidden';
+  var albums=await getAlbums(vmodItem);
+  document.getElementById('vmh-sub').textContent=vmodItem.marca+' / '+vmodItem.modalidade.map(mLabel).join(', ')+' / '+albums.length+' variacoes';
+  if(!albums.length){
+    var img=vmodItem.coverUrl
+      ?'<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px"><img src="'+vmodItem.coverUrl+'" alt="'+vmodItem.modelo+'" style="max-height:320px;max-width:100%;object-fit:contain;border-radius:8px;"><p style="font-size:12px;color:var(--muted)">Foto de referencia</p></div>'
+      :'<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">Fotos em breve. Fale no WhatsApp!</div>';
+    document.getElementById('vgrid').innerHTML=img;
+    return;
+  }
+  document.getElementById('vgrid').innerHTML=albums.map(function(albumId,i){
+    return '<div class="vcard" id="vc-'+albumId+'" data-clicks="0" onclick="selectVar(\''+albumId+'\',this)">'+
+      '<div class="vci loading" data-host="'+vmodItem.host+'" data-album="'+albumId+'">'+
+        '<img src="" alt="'+vmodItem.modelo+' variacao '+(i+1)+'" loading="lazy">'+
+      '</div>'+
+      '<div class="vcb"><div class="vcn">Variacao '+(i+1)+'</div></div>'+
+    '</div>';
+  }).join('');
+  // Carrega imagens diretamente sem lazy load para garantir visibilidade no modal
+  document.querySelectorAll('#vgrid .vci[data-album]').forEach(function(el){
+    loadVarCover(el);
+  });
+}
+
+function selectVar(albumId,cardEl){
+  document.querySelectorAll('.vcard').forEach(function(c){c.classList.remove('selected');});
+  cardEl.classList.add('selected');
+  selectedAlbum=albumId;
+  var i=parseInt(cardEl.querySelector('.vcn').textContent.replace('Variacao ',''));
+  document.getElementById('vm-sel-info').innerHTML='<strong>'+vmodItem.modelo+' - Variacao '+i+'</strong>Toque novamente para ver as fotos';
+  if(cardEl.dataset.clicks==='1'){openLbox(albumId);cardEl.dataset.clicks='0';}
+  else{cardEl.dataset.clicks='1';setTimeout(function(){if(cardEl.dataset.clicks==='1')cardEl.dataset.clicks='0';},600);}
+}
+
+function closeVmod(){document.getElementById('vmod').classList.remove('open');document.body.style.overflow='';}
+
+// ── LIGHTBOX ──────────────────────────────────────────────────────────────
+async function openLbox(albumId){
+  selectedAlbum=albumId;lboxPhotos=[];lboxIdx=0;
+  document.getElementById('lh-t').textContent=vmodItem.modelo;
+  document.getElementById('lh-m').textContent=vmodItem.marca+' - Variacao selecionada';
+  document.getElementById('lmain').innerHTML='<div class="lload"><div class="spin"></div><span>Carregando fotos...</span></div>';
+  document.getElementById('lthm').innerHTML='';
+  document.getElementById('lcnt').textContent='';
+  document.getElementById('lbox').classList.add('open');
+  var r=await fetchAlbum(vmodItem.host,albumId);
+  if(!r||!r.photos.length){
+    document.getElementById('lmain').innerHTML='<div class="lload"><p style="text-align:center">Toque em Tenho interesse para ver no WhatsApp</p></div>';
+    return;
+  }
+  selectedCover=pUrl(vmodItem.host,r.photos[0]);
+  lboxPhotos=r.photos.map(function(id){return pUrl(vmodItem.host,id);});
+  renderLbox();
+}
+
+function renderLbox(){
+  if(!lboxPhotos.length) return;
+  document.getElementById('lcnt').textContent=(lboxIdx+1)+' / '+lboxPhotos.length;
+  document.getElementById('lmain').innerHTML=
+    '<button class="lnav lprev" onclick="navL(-1)">&#8249;</button>'+
+    '<div class="limgwrap" id="lwrap" onmousemove="zMov(event)" onmouseenter="zShow()" onmouseleave="zHide()">'+
+      '<img id="limg" src="'+lboxPhotos[lboxIdx]+'" alt="'+vmodItem.modelo+'">'+
+      '<div class="zlens" id="zlens"></div>'+
+    '</div>'+
+    '<div class="zres" id="zres"><img id="zrimg" src="'+lboxPhotos[lboxIdx]+'"></div>'+
+    '<button class="lnav lnext" onclick="navL(1)">&#8250;</button>';
+  document.getElementById('lthm').innerHTML=lboxPhotos.map(function(u,i){
+    return '<div class="lthumb'+(i===lboxIdx?' on':'')+'" onclick="goL('+i+')"><img src="'+u+'" loading="lazy" onerror="this.closest(\'.lthumb\').style.display=\'none\'"></div>';
+  }).join('');
+}
+
+function navL(d){goL((lboxIdx+d+lboxPhotos.length)%lboxPhotos.length);}
+function goL(i){
+  lboxIdx=i;
+  var img=document.getElementById('limg'),zi=document.getElementById('zrimg');
+  if(img) img.src=lboxPhotos[i];
+  if(zi) zi.src=lboxPhotos[i];
+  document.querySelectorAll('.lthumb').forEach(function(t,ti){t.classList.toggle('on',ti===i);});
+  document.getElementById('lcnt').textContent=(i+1)+' / '+lboxPhotos.length;
+  var th=document.querySelectorAll('.lthumb')[i];
+  if(th) th.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+}
+function closeLbox(){document.getElementById('lbox').classList.remove('open');zHide();}
+function backToVmod(){closeLbox();}
+document.getElementById('lbox').addEventListener('click',function(e){if(e.target===document.getElementById('lbox'))closeLbox();});
+
+// ── ZOOM ──────────────────────────────────────────────────────────────────
+var zV=false;
+function zShow(){if(window.innerWidth<=600)return;zV=true;['zlens','zres'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='block';});}
+function zHide(){zV=false;['zlens','zres'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none';});}
+function zMov(e){
+  if(!zV||window.innerWidth<=600) return;
+  var img=document.getElementById('limg'),lens=document.getElementById('zlens'),res=document.getElementById('zres');
+  if(!img||!lens||!res) return;
+  var lw=80,lh=80,rect=img.getBoundingClientRect();
+  var x=e.clientX-rect.left-lw/2,y=e.clientY-rect.top-lh/2;
+  x=Math.max(0,Math.min(x,rect.width-lw));y=Math.max(0,Math.min(y,rect.height-lh));
+  lens.style.cssText='display:block;left:'+x+'px;top:'+y+'px;width:'+lw+'px;height:'+lh+'px;';
+  var ri=document.getElementById('zrimg');if(!ri)return;
+  var zoom=3;
+  ri.style.width=(rect.width*zoom)+'px';ri.style.height=(rect.height*zoom)+'px';
+  ri.style.left=(-x*zoom)+'px';ri.style.top=(-y*zoom)+'px';
+  res.style.left=(rect.right+12)+'px';res.style.top=rect.top+'px';
+}
+
+// ── WHATSAPP ──────────────────────────────────────────────────────────────
+function openNm(){
+  if(!vmodItem) return;
+  var varNum=selectedAlbum&&vmodItem.albums&&vmodItem.albums.length?' - Variacao '+(vmodItem.albums.indexOf(selectedAlbum)+1):'';
+  document.getElementById('nm-prod').textContent=vmodItem.marca+' / '+vmodItem.modelo+varNum;
+  document.getElementById('nm-nome').value='';
+  document.getElementById('nm').classList.add('open');
+  setTimeout(function(){document.getElementById('nm-nome').focus();},100);
+}
+function closeNm(){document.getElementById('nm').classList.remove('open');}
+
+function sendWpp(skip){
+  var nome=skip?'':(document.getElementById('nm-nome').value.trim());
+  var item=vmodItem;if(!item)return;
+  var varAlbums=item.albums||[];
+  var varNum=selectedAlbum&&varAlbums.length?varAlbums.indexOf(selectedAlbum)+1:'';
+  var fotoUrl=selectedCover||(lboxPhotos[lboxIdx]||'');
+  var msg='';
+  if(nome) msg+='Nome: '+nome+'\n\n';
+  msg+='Produto selecionado no catalogo\n';
+  msg+='Marca: '+item.marca+'\n';
+  msg+='Modelo: '+item.modelo+'\n';
+  if(varNum) msg+='Variacao: '+varNum+'\n';
+  msg+='Modalidade: '+item.modalidade.map(mLabel).join(', ')+'\n';
+  if(fotoUrl) msg+='Ver foto: '+fotoUrl+'\n';
+  msg+='Gostaria de saber mais sobre disponibilidade e valor.';
+  window.open('https://wa.me/'+WPP+'?text='+encodeURIComponent(msg),'_blank');
+  closeNm();
+}
+
+function wppDireto(tipo){
+  var nome=prompt('Como posso te chamar? (pode deixar em branco)')||'';
+  var msg=nome?'Ola, me chamo '+nome+'!\n\n':'';
+  msg+=tipo==='localizar'
+    ?'Via Catalogo\n\nOla! Nao achei o modelo que queria. Podem me ajudar a localizar?'
+    :'Via Catalogo\n\nOla! Vim pelo catalogo de tenis e gostaria de mais informacoes.';
+  window.open('https://wa.me/'+WPP+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+// ── POPUP ─────────────────────────────────────────────────────────────────
+var popShown=false;
+function showPop(){if(popShown)return;popShown=true;document.getElementById('pop').classList.add('show');}
+function closePop(){document.getElementById('pop').classList.remove('show');setTimeout(function(){popShown=false;},5*60*1000);}
+setTimeout(showPop,30000);
+new IntersectionObserver(function(e){if(e[0].isIntersecting)showPop();},{threshold:.5}).observe(document.getElementById('pg-foot'));
+
+// ── TECLADO ───────────────────────────────────────────────────────────────
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(document.getElementById('lbox').classList.contains('open')){closeLbox();return;}
+    if(document.getElementById('nm').classList.contains('open')){closeNm();return;}
+    if(document.getElementById('vmod').classList.contains('open')){closeVmod();return;}
+    closePop();
+  }
+  if(document.getElementById('lbox').classList.contains('open')){
+    if(e.key==='ArrowLeft') navL(-1);
+    if(e.key==='ArrowRight') navL(1);
+  }
+  if(document.getElementById('nm').classList.contains('open')&&e.key==='Enter') sendWpp();
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+document.body.style.overflow='';
+renderTabs();
+applyF();
+
+</script>
+</body>
+</html>
